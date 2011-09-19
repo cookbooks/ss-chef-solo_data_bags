@@ -34,6 +34,12 @@ if Chef::Config[:solo] && is_chef_version_old?
     end
 
     class DataBagItem
+      def self.from_hash(h)
+        item = new
+        item.raw_data = h
+        item
+      end
+
       ##
       # Load a Data Bag Item by name via local data_bag_path if run in solo
       # mode.
@@ -63,8 +69,16 @@ if Chef::Config[:solo] && is_chef_version_old?
         end
 
         def data_bag_item(bag, item)
-          DataBag.validate_name!(bag.to_s)
-          DataBagItem.validate_id!(item)
+          # Chef::DataBag.validate_name! and
+          # Chef::DataBagItem.validate_name! were introduced in v0.9.16 so
+          # they may not exist
+          if DataBag.respond_to?("validate_name!")
+            DataBag.validate_name!(bag.to_s)
+          end
+          if DataBagItem.respond_to?("validate_name!")
+            DataBagItem.validate_id!(item)
+          end
+
           DataBagItem.load_local(bag, item)
         rescue Exception
           Log.error("Failed to load data bag item: #{bag.inspect} #{item.inspect}")
