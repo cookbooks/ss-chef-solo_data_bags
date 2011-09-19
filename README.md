@@ -43,7 +43,7 @@ Include a reference to the cookbook in a **Cheffile** and run
     librarian-chef init
     cat >> Cheffile <<END_OF_CHEFFILE
     cookbook 'solo_data_bags',
-      :git => 'git://github.com/fnichol/chef-solo_data_bags.git', :ref => 'v0.0.1'
+      :git => 'git://github.com/fnichol/chef-solo_data_bags.git', :ref => 'v0.0.4'
     END_OF_CHEFFILE
     librarian-chef install
 
@@ -55,7 +55,7 @@ plugin:
 
     gem install knife-github-cookbooks
     cd chef-repo
-    knife cookbook github install fnichol/chef-solo_data_bags/v0.0.1
+    knife cookbook github install fnichol/chef-solo_data_bags/v0.0.4
 
 ## As a Git Submodule
 
@@ -74,7 +74,7 @@ If the cookbook needs to downloaded temporarily just to be uploaded to a Chef
 Server or Opscode Hosted Chef, then a tarball installation might fit the bill:
 
     cd chef-repo/cookbooks
-    curl -Ls https://github.com/fnichol/chef-solo_data_bags/tarball/v0.0.1 | tar xfz - && \
+    curl -Ls https://github.com/fnichol/chef-solo_data_bags/tarball/v0.0.4 | tar xfz - && \
       mv fnichol-chef-solo_data_bags-* solo_data_bags
 
 # Usage
